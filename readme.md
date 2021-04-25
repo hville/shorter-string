@@ -8,12 +8,12 @@
 ## Example
 
 ```javascript
-import {enc, dec, COMPONENT} from './index.js'
+import {enc, dec, QUERY} from './index.js'
 
-const text = `Un chasseur sachant chasser sait chasser sans son chien.`,
-      code = enc(text, COMPONENT) //ykR50KhRlGoR*o3uY~tzDTypZ!uhO7_N~WMAseq(INRu(U
+const text = `Si six chasseurs savent chasser sans six chiens, soixante-six chasseurs savent chasser sans soixante-six chiens.`,
+      code = enc(text, QUERY) //bSg:x'i7aIW$&O@Mg&y6B2pTnUM4!dCqF',&TO6-pnFYF''W=NB2;M@9maoi&?VaM0j
 
-console.log( dec(comp, COMPONENT) === text) ) //true
+console.log( dec(comp, QUERY) === text),  ) //true, with 60% compression
 ```
 
 ## API
