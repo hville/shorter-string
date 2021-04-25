@@ -1,0 +1,28 @@
+{
+  "name": "@hugov/shorter-string",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "short string compression using Burrows-Wheeler transform, move to front and Elias-gamma variable length encoding",
+  "keywords": [
+    "bwt",
+    "Burrows-Wheeler transform",
+    "mtf",
+    "move to front",
+    "elias gamma",
+    "vle",
+    "variable length encoding",
+    "compression",
+    "compressURIComponent"
+  ],
+  "author": "Hugo Villeneuve",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js",
+    "pub": "npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hville/shorter-string.git"
+  },
+  "license": "ISC"
+}
