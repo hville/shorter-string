@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD004 MD007 MD010 MD041 MD022 MD024 MD029 MD031 MD032 MD036 -->
-# bwt-mtf-vle
+# shorter-string
 
 *small string to string compression for short strings using Burrows-Wheeler transform (BWT), move to front (MTF) and Elias-gamma variable length encoding*
 

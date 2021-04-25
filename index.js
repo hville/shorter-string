@@ -8,16 +8,16 @@ export const
 	QUERY = PCHAR + '/?',
 	URI = QUERY + '#'
 
-export function enc(text, keys=URIComponent) {
+export function enc(text, keys=COMPONENT) {
 	return toString(arr_big(eMTF(bwt(text))), keys)
 }
 
-export function dec(code, keys=URIComponent) {
+export function dec(code, keys=COMPONENT) {
 	return inv_bwt(dMTF(big_arr(parseBig(code, keys))))
 }
 
 
-function toString(big, keys=URIComponent) {
+function toString(big, keys=COMPONENT) {
 	const len = BigInt(keys.length)
 	let res = []
 	do {
@@ -26,7 +26,7 @@ function toString(big, keys=URIComponent) {
 	} while (big)
 	return res.join('')
 }
-function parseBig(txt, keys=URIComponent) {
+function parseBig(txt, keys=COMPONENT) {
 	const len = BigInt(keys.length)
 	let big = 0n
 	for (const c of txt) {
