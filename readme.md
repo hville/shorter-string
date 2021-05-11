@@ -31,7 +31,7 @@ URI:string         | PCHAR + `/?#`          | same safe characters as in encodeU
 
 ## Notes
 
-* inpired from [tommyreddad.github.io](https://github.com/tommyreddad/tommyreddad.github.io/blob/master/js/2019-08-08-burrows-wheeler/bwt.js)
+* inpired from the blog post [reddad.ca/2020/09/27/burrows-wheeler-revisited](https://reddad.ca/2020/09/27/burrows-wheeler-revisited/)
 * modified to facilitate URI friendly encoding
 * optimized for short strings
 * not optimized for large inputs

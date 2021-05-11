@@ -4,16 +4,19 @@ import {eMTF, dMTF} from './src/mtf.js'
 export const
   BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
 	COMPONENT = BASE62 + "-._~!()'*",
+	// rfc3986
 	PCHAR = COMPONENT + '+,;=$&:@',
 	QUERY = PCHAR + '/?',
+	FRAGMENT = QUERY,
 	URI = QUERY + '#'
+	// TODO Chromium bug escapes "'" to %27 in query
 
 export function enc(text, keys=COMPONENT) {
-	return toString(arr_big(eMTF(bwt(text))), keys)
+	return text ? toString(arr_big(eMTF(bwt(text))), keys) : ''
 }
 
 export function dec(code, keys=COMPONENT) {
-	return inv_bwt(dMTF(big_arr(parseBig(code, keys))))
+	return code ? inv_bwt(dMTF(big_arr(parseBig(code, keys)))) : ''
 }
 
 
