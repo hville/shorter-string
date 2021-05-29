@@ -8,23 +8,22 @@
 ## Example
 
 ```javascript
-import {enc, dec, QUERY} from './index.js'
+import {enc, dec, FRAGMENT} from './index.js'
 
 const text = `Si six chasseurs savent chasser sans six chiens, soixante-six chasseurs savent chasser sans soixante-six chiens.`,
-      code = enc(text, QUERY) //bSg:x'i7aIW$&O@Mg&y6B2pTnUM4!dCqF',&TO6-pnFYF''W=NB2;M@9maoi&?VaM0j
+      code = enc(text, FRAGMENT) //1/x;CKry3eHaIZeUyL0/-J5u+kqO~S@YyQJHg6Xxs?9Ks/K5-_R=kMl.-
 
-console.log( dec(comp, QUERY) === text),  ) //true, with 60% compression
+console.log( dec(comp, QUERY) === text),  ) //true, with 51% compression
 ```
 
 ## API
 
-Constants          | Characters             | Note
------------------- | ---------------------- | -------------------------------
-BASE62:string      | `0`..`9a`..`zA`..`Z`   |
-COMPONENT:string   | BASE62 + `-._~!()'*`   | same safe characters as in encodeURIComponent
-PCHAR:string       | COMPONENT + `+,;=$&:@` | [RFC 3986](https://tools.ietf.org/html/rfc3986) pchar (except `%..`)
-QUERY:string       | PCHAR + `/?`           | [RFC 3986](https://tools.ietf.org/html/rfc3986) query string
-URI:string         | PCHAR + `/?#`          | same safe characters as in encodeURI
+Constants          | Note
+------------------ | -------------------------------
+BASE62:string      | `0-9A-Za-z`
+UNRESERVED:string  | BASE62 + `.-_~` as in [RFC 3986](https://tools.ietf.org/html/rfc3986)
+QUERY:string       | [RFC 3986](https://tools.ietf.org/html/rfc3986) `query` except `'` for Chrome
+FRAGMENT:string    | [RFC 3986](https://tools.ietf.org/html/rfc3986) `fragment`, same as QUERY + `'`
 
 * enc: `( text:string, [keys:string=COMPONENT] ) => code:string`
 * dec: `( code:string, [keys:string=COMPONENT] ) => text:string`
