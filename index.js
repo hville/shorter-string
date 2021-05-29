@@ -1,26 +1,24 @@
 import {bwt, inv_bwt} from './src/bwt.js'
 import {eMTF, dMTF} from './src/mtf.js'
+import {UPPER, LOWER, DIGIT} from './src/charset.js'
+export * from './src/charset.js'
 
-export const
-  BASE62 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-	COMPONENT = BASE62 + "-._~!()'*",
-	// rfc3986
-	PCHAR = COMPONENT + '+,;=$&:@',
-	QUERY = PCHAR + '/?',
-	FRAGMENT = QUERY,
-	URI = QUERY + '#'
-	// TODO Chromium bug escapes "'" to %27 in query
+const DIC = (' ' + LOWER + `,.'":;-?()[]{}\n!` + DIGIT + '+/*=_~<>^`#%\t$&@|\\' + UPPER).split('')
+function charRange(i,j,a=[]) {
+	while(i<=j) a.push( String.fromCharCode(i++) )
+	return a
+}
+charRange(127, 127, charRange(0, 9, charRange(11, 31, DIC)))
 
-export function enc(text, keys=COMPONENT) {
-	return text ? toString(arr_big(eMTF(bwt(text))), keys) : ''
+export function enc(text, keys=UNRESERVED, dic=DIC) {
+	return text ? toString(arr_big(eMTF(bwt(text), dic)), keys) : ''
 }
 
-export function dec(code, keys=COMPONENT) {
-	return code ? inv_bwt(dMTF(big_arr(parseBig(code, keys)))) : ''
+export function dec(code, keys=UNRESERVED, dic=DIC) {
+	return code ? inv_bwt(dMTF(big_arr(parseBig(code, keys)), dic)) : ''
 }
 
-
-function toString(big, keys=COMPONENT) {
+function toString(big, keys=UNRESERVED) {
 	const len = BigInt(keys.length)
 	let res = []
 	do {

@@ -1,5 +1,5 @@
-export function dMTF(arr) {
-	const dic = [],
+export function dMTF(arr,DIC) {
+	const dic = DIC?.slice() || [],
 				res = []
 	for (let i of arr) {
 		//need to expand the dic to include highest value
@@ -13,10 +13,11 @@ export function dMTF(arr) {
 	return res.join('')
 }
 
-export function eMTF(txt) {
-	const dic = [],
+export function eMTF(txt,DIC) {
+	const dic = DIC?.slice() || [],
 				res = []
 	for (const c of txt) {
+		//TODO map?
 		let i = dic.indexOf(c)
 		if (i<0) {
 			//need to expand the dic to include highest value

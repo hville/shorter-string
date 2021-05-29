@@ -1,7 +1,7 @@
 {
   "name": "@hugov/shorter-string",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "short string compression using Burrows-Wheeler transform, move to front and Elias-gamma variable length encoding",
   "keywords": [
     "bwt",
