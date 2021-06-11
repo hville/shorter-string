@@ -14,15 +14,12 @@ function lyndon(str) {
 	while (k < str.length - 1) {
 		let i = k + 1,
 				j = k + 2
+		//ji=1
 		while (j < str.length && str[i] <= str[j]) {
-			if (str[i] === str[j]) i += 1
-			else i = k + 1
+			i = str[i] === str[j] ? i+1 : k+1
 			j += 1
 		}
-		do {
-			k = k + j - i
-			fact.push(k)
-		} while (k < i)
+		while (k < i) fact.push(k += j - i)
 	}
 	return fact
 }
