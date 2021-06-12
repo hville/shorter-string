@@ -7,6 +7,9 @@ function test(lbl, txt, chr=FRAGMENT, dic) {
 	console.assert(back === txt, back)
 }
 
+test('evil',
+`abcabcaabcababcabcabcabcaabcabcababcabcabc`
+)
 test('short text',
 `Si six chasseurs savent chasser sans six chiens, soixante-six chasseurs savent chasser sans soixante-six chiens.`
 )

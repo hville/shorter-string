@@ -4,100 +4,64 @@ https://github.com/tommyreddad/tommyreddad.github.io/blob/master/js/2019-08-08-b
 */
 
 /**
-* Gets the ending indices of the Lyndon factors for a given string, by Duval's algorithm.
-* @param str The input string.
-* @returns The Lyndon factorization of the input string.
+* Duval's algorithm to gets the position following each Lyndon word
+* @param {string} s
+* @return {number[]} the end indices, last === length of the string
 */
-function lyndon(str) {
-	const fact = [-1]
-	let k = -1
-	while (k < str.length - 1) {
-		let i = k + 1,
-				j = k + 2
-		//ji=1
-		while (j < str.length && str[i] <= str[j]) {
-			i = str[i] === str[j] ? i+1 : k+1
-			j += 1
-		}
-		while (k < i) fact.push(k += j - i)
+function lyndon(s) {
+	const ends = []
+	let k = 0
+	while (k < s.length) {
+		let i = k,
+				j = k+1
+		while (j < s.length && s[i] <= s[j]) s[i] === s[j++] ? ++i : i=k
+		ends.push(k += j-i)
 	}
-	return fact
+	return ends
 }
+
 /**
-* Gets all of the cyclic rotations of a given segment.
-* @param segment The input segment.
-* @returns The cyclic rotations of the input segment.
+* Gets all of the lyndon words cyclic rotations
+* @param {string} s
+* @return {Object[]} The cyclic rotations of the input segment
 */
-function get_segment_rotations(segment) {
-	const rots = []
-	for (let i = segment.start; i <= segment.end; ++i) {
-		rots.push({
-			start: i,
-			end: segment.end,
-			restart: segment.start
-		})
+function get_rotations(s) {
+	const words = lyndon(s),
+				rots = []
+	let iw = 0,
+			i = 0
+	for (let k=0; k<s.length; ++k) {
+		if (k === words[iw]) i = words[iw++]
+		rots[k] = { k, i, j:words[iw] }
 	}
 	return rots
 }
 /**
-* Gets the comparator function which allows for comparing Segments of a given string in the
-* lexicographic infinite periodic order.
-* @param str The string whose segments are to be compared.
-* @returns The Segment comparator function on the input string.
+* Computes the Gil-Scott bijective Burrows-Wheeler transform of the input string
+* @param {string} s
+* @return {string} The Gil-Scott BWT string
 */
-function get_periodic_comparator(str) {
-	return (i, j) => {
-		let i_it = i.start,
-				j_it = j.start
+export function bwt(s) {
+	return get_rotations(s)
+	.sort((a, b) => {
+		let ka = a.k,
+				kb = b.k
 		do {
-			if (str[i_it] < str[j_it]) return -1
-			else if (str[i_it] > str[j_it]) return 1
-			i_it++
-			if (i_it > i.end) i_it = i.restart
-			j_it++
-			if (j_it > j.end) j_it = j.restart
+			if (s[ka] < s[kb]) return -1
+			else if (s[ka] > s[kb]) return 1
+			if (++ka === a.j) ka = a.i
+			if (++kb === b.j) kb = b.i
 			// Declare a tie if we ever return to the origin.
-		} while (!(i_it === i.start && j_it === j.start))
+		} while (ka !== a.k || kb !== b.k)
 		return 0
-	}
-}
-
-/**
-* Computes the Gil-Scott bijective Burrows-Wheeler transform of the input string.
-* @param str The string to be transformed.
-* @returns The Gil-Scott BWT of the input string.
-*/
-export function bwt(str) {
-	// Collect the indices of rotations of the Lyndon factors.
-	const lyndon_fact = lyndon(str),
-				lyndon_fact_segments = [],
-				rotations = [],
-				output = []
-
-	for (let i = 0; i < lyndon_fact.length - 1; ++i) lyndon_fact_segments.push({
-		start: lyndon_fact[i] + 1,
-		end: lyndon_fact[i + 1],
-		restart: lyndon_fact[i] + 1
 	})
-
-	for (const fact of lyndon_fact_segments)
-		for (const rot of get_segment_rotations(fact))
-			rotations.push(rot)
-
-	// The final result consists of the concatenated last rotation of each Lyndon factor.
-	// It is an open problem to do this step in faster than O(n log n) time.
-	rotations.sort(get_periodic_comparator(str))
-	for (const rot of rotations) output.push( str[
-		rot.start === rot.restart ? rot.end : rot.start-1
-	])
-	return output.join('')
+	.reduce( (acc, rot) => acc + s[ (rot.k === rot.i ? rot.j : rot.k) - 1 ], '')
 }
 
 /**
-* Performs the subroutine `Match` from the Gil & Scott Burrows-Wheeler transform paper.
-* @param str A string.
-* @param Sigma The alphabet of the input string.
-* @returns The output permutation.
+* Performs the subroutine `Match` from the Gil & Scott Burrows-Wheeler transform paper
+* @param {string} str
+* @return {number[]} The output permutation
 */
 function match(str) {
 	const cnt = {}
@@ -114,10 +78,9 @@ function match(str) {
 }
 
 /**
-* Inverts the Gil-Scott bijective Burrows-Wheeler transform of a given string.
-* Performs the subroutine `MultiThread` from the Gil & Scott Burrows-Wheeler transform paper.
-* @param str A string.
-* @returns The inverted BWT of the given string.
+* Inverts the Gil-Scott bijective Burrows-Wheeler transform
+* @param {string} str
+* @return {string} The inverted BWT
 */
 export function inv_bwt(str) {
 	const T = match(str),
@@ -133,5 +96,5 @@ export function inv_bwt(str) {
 			} while (T[k] !== -1)
 		}
 	}
-	return alpha.reverse().join("")
+	return alpha.reverse().join('')
 }
