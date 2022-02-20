@@ -1,6 +1,6 @@
 import {bwt, inv_bwt} from './src/bwt.js'
 import {eMTF, dMTF} from './src/mtf.js'
-import {UPPER, LOWER, DIGIT} from './src/charset.js'
+import {UPPER, LOWER, DIGIT, QUERY} from './src/charset.js'
 export * from './src/charset.js'
 
 const DIC = (' ' + LOWER + `,.'":;-?()[]{}\n!` + DIGIT + '+/*=_~<>^`#%\t$&@|\\' + UPPER).split('')
@@ -10,15 +10,15 @@ function charRange(i,j,a=[]) {
 }
 charRange(127, 127, charRange(0, 9, charRange(11, 31, DIC)))
 
-export function enc(text, keys=UNRESERVED, dic=DIC) {
+export function enc(text, keys=QUERY, dic=DIC) {
 	return text ? toString(arr_big(eMTF(bwt(text), dic)), keys) : ''
 }
 
-export function dec(code, keys=UNRESERVED, dic=DIC) {
+export function dec(code, keys=QUERY, dic=DIC) {
 	return code ? inv_bwt(dMTF(big_arr(parseBig(code, keys)), dic)) : ''
 }
 
-function toString(big, keys=UNRESERVED) {
+function toString(big, keys=QUERY) {
 	const len = BigInt(keys.length)
 	let res = []
 	do {
@@ -27,7 +27,7 @@ function toString(big, keys=UNRESERVED) {
 	} while (big)
 	return res.join('')
 }
-function parseBig(txt, keys=COMPONENT) {
+function parseBig(txt, keys=QUERY) {
 	const len = BigInt(keys.length)
 	let big = 0n
 	for (const c of txt) {

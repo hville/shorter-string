@@ -85,6 +85,7 @@ function match(str) {
 export function inv_bwt(str) {
 	const T = match(str),
 				alpha = []
+	//TODO build in reverse?
 	for (let j = 0; j < str.length; ++j) {
 		if (T[j] !== -1) {
 			let k = j

@@ -39,6 +39,8 @@ FRAGMENT:string    | [RFC 3986](https://tools.ietf.org/html/rfc3986) `fragment`,
   * lzbase62 (better compression)
   * lzutf8 (best compression, too big at 68.5 kb minified, no es6 exports)
 
+Demo [here](https://schem.ist/bwt/index.html#en/24HAei+B-XGCKvJUl=M.5uVj3:F-~g5l4u)
+
 # License
 
 [MIT](http://www.opensource.org/licenses/MIT) © [Hugo Villeneuve](https://github.com/hville)
