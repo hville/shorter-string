@@ -1,6 +1,8 @@
-export function decodeMTF(arr, DIC) {
-	const dic = DIC?.slice() || [],
-				res = []
+import {MTF} from './charset.js'
+
+export function decodeMTF(arr, DIC=MTF) {
+	const res = [],
+				dic = DIC.split('')
 	for (let i of arr) {
 		//need to expand the dic to include highest value
 		if (i>=dic.length) for (let j=dic.length; j<=i; ++j) dic[j] = String.fromCharCode(j)
@@ -13,9 +15,9 @@ export function decodeMTF(arr, DIC) {
 	return res.join('')
 }
 
-export function encodeMTF(txt, DIC) {
-	const dic = DIC?.slice() || [],
-				res = []
+export function encodeMTF(txt, DIC=MTF) {
+	const res = [],
+				dic = DIC.split('')
 	for (const c of txt) {
 		//TODO map?
 		let i = dic.indexOf(c)

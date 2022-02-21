@@ -1,4 +1,6 @@
-export function encodeBTT(big, keys) {
+import {HASH} from './charset.js'
+
+export function encodeBTT(big, keys=HASH) {
 	const len = BigInt(keys.length)
 	let res = []
 	do {
@@ -8,7 +10,7 @@ export function encodeBTT(big, keys) {
 	return res.join('')
 }
 
-export function decodeBTT(txt, keys) {
+export function decodeBTT(txt, keys=HASH) {
 	const len = BigInt(keys.length)
 	let big = 0n
 	for (const c of txt) {

@@ -13,3 +13,16 @@ export const
 	QUERY = UNRESERVED + '%!$&()*+,;=:@',
 	// adding RFC1924 gen-delims full possible fragment hash values
 	HASH = PCHAR + "/?#[]"
+
+	// Move-to-Front characters, favoring common characters first
+export const MTF = charRange(127, 127,
+	charRange(0, 8,
+		charRange(11, 31, ' ' + LOWER + `,.'":;-?()[]{}\n!` + DIGIT + '+/*=_~<>^`#%\t$&@|\\' + UPPER)
+	)
+)
+
+function charRange(i,j,s) {
+	while(i<=j) s+=String.fromCharCode(i++)
+	return s
+}
+
