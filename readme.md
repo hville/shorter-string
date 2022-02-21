@@ -46,7 +46,7 @@ decode:            | `( code:string, [keys:string=HASH] ) => text:string`
   * lzbase62 (better compression)
   * lzutf8 (best compression, too big at 68.5 kb minified, no es6 exports)
 
-Demo [here](https://schem.ist/bwt/index.html#en/A]JQ%@56mS.[CdSe+Nry.:hD;]yUaypvu@yltrD'q/Y$vlz_+_.H_7Q4)
+ [Live Demo](https://schem.ist/bwt/index.html#en/A]JQ%@56mS.[CdSe+Nry.:hD;]yUaypvu@yltrD'q/Y$vlz_+_.H_7Q4)
 
 # License
 
