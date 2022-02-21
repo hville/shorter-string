@@ -8,25 +8,32 @@
 ## Example
 
 ```javascript
-import {enc, dec, FRAGMENT} from './index.js'
+import {encode, decode} from './index.js'
 
 const text = `Si six chasseurs savent chasser sans six chiens, soixante-six chasseurs savent chasser sans soixante-six chiens.`,
-      code = enc(text, FRAGMENT) //1/x;CKry3eHaIZeUyL0/-J5u+kqO~S@YyQJHg6Xxs?9Ks/K5-_R=kMl.-
 
-console.log( dec(comp, QUERY) === text),  ) //true, with 51% compression
+const code = encode(text)
+// A]JQ%@56mS.[CdSe+Nry.:hD;]yUaypvu@yltrD'q/Y$vlz_+_.H_7Q4
+
+console.log( decode(code) === text),  )
+// true, with 50% compression in character length
 ```
 
 ## API
 
-Constants          | Note
+exports            | Note
 ------------------ | -------------------------------
-BASE62:string      | `0-9A-Za-z`
-UNRESERVED:string  | BASE62 + `.-_~` as in [RFC 3986](https://tools.ietf.org/html/rfc3986)
-QUERY:string       | [RFC 3986](https://tools.ietf.org/html/rfc3986) `query` except `'` for Chrome
-FRAGMENT:string    | [RFC 3986](https://tools.ietf.org/html/rfc3986) `fragment`, same as QUERY + `'`
-
-* enc: `( text:string, [keys:string=COMPONENT] ) => code:string`
-* dec: `( code:string, [keys:string=COMPONENT] ) => text:string`
+**string constants**|
+BASE62             | `0-9A-Za-z`
+BASE64             | BASE62 + `-_`
+UNRESERVED         | BASE62 + `-._~`; [RFC 3986](https://tools.ietf.org/html/rfc3986) base:66
+PCHAR              | UNRESERVED + `%!$&'()*+,;=:@`; [RFC 3986](https://tools.ietf.org/html/rfc3986) base:80
+QUERY              | PCHAR without `'` for [chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=292740) base:79
+RFC1924            | [RFC1924](https://datatracker.ietf.org/doc/html/rfc192485) base:85
+HASH               | PCHAR + `/?#[]`; base:85
+**functions**      |
+encode             | `( text:string, [keys:string=HASH] ) => code:string`
+decode:            | `( code:string, [keys:string=HASH] ) => text:string`
 
 ## Notes
 

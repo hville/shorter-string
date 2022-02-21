@@ -41,7 +41,7 @@ function get_rotations(s) {
 * @param {string} s
 * @return {string} The Gil-Scott BWT string
 */
-export function bwt(s) {
+export function encodeBWT(s) {
 	return get_rotations(s)
 	.sort((a, b) => {
 		let ka = a.k,
@@ -82,7 +82,7 @@ function match(str) {
 * @param {string} str
 * @return {string} The inverted BWT
 */
-export function inv_bwt(str) {
+export function decodeBWT(str) {
 	const T = match(str),
 				alpha = []
 	//TODO build in reverse?

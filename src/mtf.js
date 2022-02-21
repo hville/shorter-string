@@ -1,4 +1,4 @@
-export function dMTF(arr,DIC) {
+export function decodeMTF(arr, DIC) {
 	const dic = DIC?.slice() || [],
 				res = []
 	for (let i of arr) {
@@ -13,7 +13,7 @@ export function dMTF(arr,DIC) {
 	return res.join('')
 }
 
-export function eMTF(txt,DIC) {
+export function encodeMTF(txt, DIC) {
 	const dic = DIC?.slice() || [],
 				res = []
 	for (const c of txt) {

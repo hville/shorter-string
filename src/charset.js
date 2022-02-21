@@ -3,8 +3,13 @@ export const
 	UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 	DIGIT = '0123456789',
   BASE62 = DIGIT + UPPER + LOWER,
-	//https://datatracker.ietf.org/doc/html/rfc3986
-	UNRESERVED  = BASE62 + '.-_~',
-	// Chrome takes exception to the single quote in Query Strings https://bugs.chromium.org/p/chromium/issues/detail?id=292740
-	QUERY = UNRESERVED + ',?!():;+/*=$&@',
-	FRAGMENT = QUERY + "'"
+	BASE64 = BASE62 + '-_',
+	// https://datatracker.ietf.org/doc/html/rfc3986
+	UNRESERVED = BASE62 + '-._~',
+	PCHAR = UNRESERVED + "%!$&'()*+,;=:@",
+	// base85:RFC1924 https://datatracker.ietf.org/doc/html/rfc1924
+	RFC1924 = BASE62 + '!#$%&()*+-;<=>?@^_`{|}~',
+	// excluding the single quote query strings https://bugs.chromium.org/p/chromium/issues/detail?id=292740
+	QUERY = UNRESERVED + '%!$&()*+,;=:@',
+	// adding RFC1924 gen-delims full possible fragment hash values
+	HASH = PCHAR + "/?#[]"
