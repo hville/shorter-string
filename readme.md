@@ -13,7 +13,7 @@ import {encode, decode} from './index.js'
 const text = `Si six chasseurs savent chasser sans six chiens, soixante-six chasseurs savent chasser sans soixante-six chiens.`,
 
 const code = encode(text)
-// A]JQ%@56mS.[CdSe+Nry.:hD;]yUaypvu@yltrD'q/Y$vlz_+_.H_7Q4
+// exi_hL?ZiKNQ$_GjNm7p@).PdmyIa1Up%T%(+'K_jiUzi!=LTIkOd,C;
 
 console.log( decode(code) === text),  )
 // true, with 50% compression in character length
