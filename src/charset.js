@@ -11,8 +11,8 @@ export const
 	RFC1924 = BASE62 + '!#$%&()*+-;<=>?@^_`{|}~',
 	// excluding the single quote query strings https://bugs.chromium.org/p/chromium/issues/detail?id=292740
 	QUERY = UNRESERVED + '%!$&()*+,;=:@',
-	// adding RFC1924 gen-delims full possible fragment hash values
-	HASH = PCHAR + "/?#[]"
+	// adding RFC1924 full possible fragment hash values
+	HASH = PCHAR + "/?#"
 
 	// Move-to-Front characters, favoring common characters first
 export const MTF = charRange(127, 127,

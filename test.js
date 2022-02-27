@@ -10,12 +10,13 @@ function test(lbl, txt, chr, dic) {
 	console.assert(back === txt, back)
 }
 
+const example = `Si six chasseurs savent chasser sans six chiens, soixante-six chasseurs savent chasser sans soixante-six chiens.`
+console.log(encode(example))
 test('evil',
 `abcabcaabcababcabcabcabcaabcabcababcabcabc`
 )
-test('short text',
-`Si six chasseurs savent chasser sans six chiens, soixante-six chasseurs savent chasser sans soixante-six chiens.`
-)
+test('short text', example)
+
 test('french, multiline',
 `Les chemises de l'archiduchesse sont-elles sèches ou archi-sèches?
 Pour qu'on dise cette phrase avec adresse, il ne faut pas que la langue soit rêche.`
